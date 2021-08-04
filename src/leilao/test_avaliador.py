@@ -2,7 +2,6 @@ from unittest import TestCase
 
 from src.leilao.dominio import Usuario, Lance, Leilao
 
-
 class TestAvaliador(TestCase):
 
     def setUp(self):
