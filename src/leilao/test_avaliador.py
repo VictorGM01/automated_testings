@@ -14,10 +14,9 @@ class TestAvaliador(TestCase):
     def test_deve_retornar_o_maior_e_o_menor_numero_de_dois_lances_quando_adicionados_em_ordem_crescente(self):
         victor = Usuario('Victor')
 
-        lance_da_rapha = Lance(self.rapha, 950.0)
         lance_do_victor = Lance(victor, 1000.0)
 
-        self.leilao.lances.append(lance_da_rapha)
+        self.leilao.lances.append(self.lance_da_rapha)
         self.leilao.lances.append(lance_do_victor)
 
         avaliador = Avaliador()
