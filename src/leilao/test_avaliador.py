@@ -16,8 +16,8 @@ class TestAvaliador(TestCase):
 
         lance_do_victor = Lance(victor, 1000.0)
 
-        self.leilao.lances.append(self.lance_da_rapha)
-        self.leilao.lances.append(lance_do_victor)
+        self.leilao.propoe_lance(self.lance_da_rapha)
+        self.leilao.propoe_lance(lance_do_victor)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -32,8 +32,8 @@ class TestAvaliador(TestCase):
 
         lance_do_victor = Lance(victor, 1000.0)
 
-        self.leilao.lances.append(lance_do_victor)
-        self.leilao.lances.append(self.lance_da_rapha)
+        self.leilao.propoe_lance(lance_do_victor)
+        self.leilao.propoe_lance(self.lance_da_rapha)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -44,7 +44,7 @@ class TestAvaliador(TestCase):
         self.assertEqual(maior_valor_esperado, avaliador.maior_lance)
 
     def test_deve_retornar_o_mesmo_valor_para_o_maior_e_o_menor_lance_quando_existir_apenas_um_lance(self):
-        self.leilao.lances.append(self.lance_da_rapha)
+        self.leilao.propoe_lance(self.lance_da_rapha)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -61,9 +61,9 @@ class TestAvaliador(TestCase):
         lance_do_victor = Lance(victor, 1000.0)
         lance_da_najara = Lance(najara, 959.9)
 
-        self.leilao.lances.append(self.lance_da_rapha)
-        self.leilao.lances.append(lance_do_victor)
-        self.leilao.lances.append(lance_da_najara)
+        self.leilao.propoe_lance(self.lance_da_rapha)
+        self.leilao.propoe_lance(lance_do_victor)
+        self.leilao.propoe_lance(lance_da_najara)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
