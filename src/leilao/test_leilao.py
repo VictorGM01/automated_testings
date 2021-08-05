@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from src.leilao.dominio import Usuario, Lance, Leilao
 
-class TestAvaliador(TestCase):
+class TestLeilao(TestCase):
 
     def setUp(self):
         self.rapha = Usuario("Raphaela")
@@ -60,5 +60,30 @@ class TestAvaliador(TestCase):
         self.assertEqual(self.menor_valor_esperado, self.leilao.menor_lance)
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
+    # verifica se a lista está vazia, caso esteja, o usuário ainda deve conseguir propor o lance:
 
+    def test_deve_permitir_o_usuario_propor_o_lance_caso_o_leilao_ainda_nao_tenha_lances(self):
+        self.leilao.propoe_lance(self.lance_da_rapha)
 
+        self.assertEqual(1, len(self.leilao.lances))
+
+    # verifica se o último usuário é diferente do usuário que está propondo o lance, caso sim, o usuário consegue propor:
+
+    def test_deve_permitir_o_usuario_propor_o_lance_caso_o_ultimo_usuario_seja_diferente(self):
+        victor = Usuario("Victor")
+        lance_do_victor = Lance(victor, 1500.0)
+
+        self.leilao.propoe_lance(self.lance_da_rapha)
+        self.leilao.propoe_lance(lance_do_victor)
+
+        self.assertEqual(2, len(self.leilao.lances))
+
+    # verifica se o último usuário é igual ao usuário que está propondo o lance, caso sim, o usuário não consegue propor:
+
+    def test_nao_deve_permitir_que_o_usuario_proponha_o_lance_caso_o_usuario_seja_o_mesmo(self):
+        novo_lance_da_rapha = Lance(self.rapha, 980.0)
+
+        self.leilao.propoe_lance(self.lance_da_rapha)
+        self.leilao.propoe_lance(novo_lance_da_rapha)
+
+        self.assertEqual(1, len(self.leilao.lances))
