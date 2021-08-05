@@ -81,9 +81,7 @@ class TestLeilao(TestCase):
     # verifica se o último usuário é igual ao usuário que está propondo o lance, caso sim, o usuário não consegue propor:
 
     def test_nao_deve_permitir_que_o_usuario_proponha_o_lance_caso_o_usuario_seja_o_mesmo(self):
-        novo_lance_da_rapha = Lance(self.rapha, 980.0)
-
-        self.leilao.propoe_lance(self.lance_da_rapha)
-        self.leilao.propoe_lance(novo_lance_da_rapha)
-
-        self.assertEqual(1, len(self.leilao.lances))
+        with self.assertRaises(ValueError):
+            novo_lance_da_rapha = Lance(self.rapha, 980.0)
+            self.leilao.propoe_lance(self.lance_da_rapha)
+            self.leilao.propoe_lance(novo_lance_da_rapha)
