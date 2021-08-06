@@ -26,7 +26,7 @@ class Leilao:
         self.menor_lance = sys.float_info.max
 
     def propoe_lance(self, lance: Lance):
-        if not self.__lances or self.lances[-1].usuario != lance.usuario:
+        if not self.__lances or self.lances[-1].usuario != lance.usuario and lance.valor > self.__lances[-1].valor:
             if lance.valor > self.maior_lance:
                 self.maior_lance = lance.valor
             if lance.valor < self.menor_lance:
@@ -34,7 +34,7 @@ class Leilao:
 
             self.__lances.append(lance)
         else:
-            raise ValueError("O mesmo usuário não pode propor mais do que um lance por vez")
+            raise ValueError("Erro ao propor o lance!")
 
     @property
     def lances(self):
