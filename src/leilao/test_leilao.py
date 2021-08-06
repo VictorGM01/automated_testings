@@ -23,18 +23,14 @@ class TestLeilao(TestCase):
         self.assertEqual(self.menor_valor_esperado, self.leilao.menor_lance)
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
-    def test_deve_retornar_o_maior_e_o_menor_numero_de_dois_lances_quando_adicionados_em_ordem_decrescente(self):
-        victor = Usuario('Victor')
+    def test_nao_deve_permitir_propor_o_lance_caso_o_valor_seja_menor_do_que_o_valor_do_ultimo_lance(self):
+        with self.assertRaises(ValueError):
+            victor = Usuario('Victor')
 
-        lance_do_victor = Lance(victor, 1000.0)
+            lance_do_victor = Lance(victor, 1000.0)
 
-        self.leilao.propoe_lance(lance_do_victor)
-        self.leilao.propoe_lance(self.lance_da_rapha)
-
-        maior_valor_esperado = 1000.0
-
-        self.assertEqual(self.menor_valor_esperado, self.leilao.menor_lance)
-        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
+            self.leilao.propoe_lance(lance_do_victor)
+            self.leilao.propoe_lance(self.lance_da_rapha)
 
     def test_deve_retornar_o_mesmo_valor_para_o_maior_e_o_menor_lance_quando_existir_apenas_um_lance(self):
         self.leilao.propoe_lance(self.lance_da_rapha)
@@ -48,8 +44,8 @@ class TestLeilao(TestCase):
         victor = Usuario('Victor')
         najara = Usuario("Najara")
 
-        lance_do_victor = Lance(victor, 1000.0)
-        lance_da_najara = Lance(najara, 959.9)
+        lance_do_victor = Lance(victor, 959.9)
+        lance_da_najara = Lance(najara, 1000.0)
 
         self.leilao.propoe_lance(self.lance_da_rapha)
         self.leilao.propoe_lance(lance_do_victor)
