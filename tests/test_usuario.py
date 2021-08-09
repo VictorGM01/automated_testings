@@ -1,5 +1,7 @@
 from src.leilao.dominio import Usuario, Leilao
 import pytest
+from src.leilao.excecoes import LanceInvalido
+
 
 # funções que se repetem em todos os testes:
 @pytest.fixture
@@ -27,7 +29,7 @@ def test_deve_permitir_propor_um_lance_quando_o_valor_for_igual_ao_valor_da_cart
     assert vic.carteira == 0.0
 
 def test_nao_deve_permitir_propor_um_lance_quando_valor_for_maior_que_o_da_carteira(vic, leilao):
-    with pytest.raises(ValueError):
+    with pytest.raises(LanceInvalido):
 
         vic.propoe_lance(leilao, 200.0)
 
