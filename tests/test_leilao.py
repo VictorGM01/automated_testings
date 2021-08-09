@@ -1,6 +1,8 @@
 from unittest import TestCase
 
 from src.leilao.dominio import Usuario, Lance, Leilao
+from src.leilao.excecoes import LanceInvalido
+
 
 class TestLeilao(TestCase):
 
@@ -24,7 +26,7 @@ class TestLeilao(TestCase):
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
     def test_nao_deve_permitir_propor_o_lance_caso_o_valor_seja_menor_do_que_o_valor_do_ultimo_lance(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             victor = Usuario('Victor', 1500.0)
 
             lance_do_victor = Lance(victor, 1000.0)
@@ -77,7 +79,7 @@ class TestLeilao(TestCase):
     # verifica se o último usuário é igual ao usuário que está propondo o lance, caso sim, o usuário não consegue propor:
 
     def test_nao_deve_permitir_que_o_usuario_proponha_o_lance_caso_o_usuario_seja_o_mesmo(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             novo_lance_da_rapha = Lance(self.rapha, 980.0)
             self.leilao.propoe_lance(self.lance_da_rapha)
             self.leilao.propoe_lance(novo_lance_da_rapha)
