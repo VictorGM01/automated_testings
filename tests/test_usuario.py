@@ -1,5 +1,4 @@
 from src.leilao.dominio import Usuario, Leilao
-
 import pytest
 
 # funções que se repetem em todos os testes:
@@ -12,7 +11,6 @@ def leilao():
     return Leilao("livros")
 
 # testes das funcionalidades da class Usuario
-
 def test_deve_subtrair_valor_da_carteira_do_usuario_quando_este_propor_um_lance(vic, leilao):
     vic.propoe_lance(leilao, 50.0)
 
